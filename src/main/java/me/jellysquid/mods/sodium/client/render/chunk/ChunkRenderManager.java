@@ -269,7 +269,7 @@ public class ChunkRenderManager<T extends ChunkGraphicsState> implements ChunkSt
             node.resetGraphState();
             node.setVisibleFrame(frame);
 
-            if (spectator && this.world.getBlockState(origin).isOpaqueFullCube(this.world, origin)) {
+            if (spectator && this.world.getBlockState(origin).isFullOpaque(this.world, origin)) {
                 this.useOcclusionCulling = false;
             }
 
@@ -391,9 +391,9 @@ public class ChunkRenderManager<T extends ChunkGraphicsState> implements ChunkSt
     }
 
     private ChunkRenderContainer<T> createChunkRender(long pos) {
-        int x = ChunkSectionPos.unpackX(pos);
-        int y = ChunkSectionPos.unpackY(pos);
-        int z = ChunkSectionPos.unpackZ(pos);
+        int x = ChunkSectionPos.getX(pos);
+        int y = ChunkSectionPos.getY(pos);
+        int z = ChunkSectionPos.getZ(pos);
 
         ChunkRenderContainer<T> render = new ChunkRenderContainer<>(this.backend, this.renderer, x, y, z);
 
