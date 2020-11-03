@@ -219,8 +219,8 @@ public class WorldSlice extends ReusableObject implements BlockRenderView, Biome
         ChunkLightingView blockLightProvider = this.world.getLightingProvider().get(LightType.BLOCK);
         ChunkLightingView skyLightProvider = this.world.getLightingProvider().get(LightType.SKY);
         
-        this.blockLightArrays[sectionIdx] = blockLightProvider.getLightSection(pos);
-        this.skyLightArrays[sectionIdx] = skyLightProvider.getLightSection(pos);
+        this.blockLightArrays[sectionIdx] = blockLightProvider.getLightArray(pos);
+        this.skyLightArrays[sectionIdx] = skyLightProvider.getLightArray(pos);
     }
 
     private void populateBlockArrays(int sectionIdx, ChunkSectionPos pos, Chunk chunk) {
