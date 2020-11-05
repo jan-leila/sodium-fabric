@@ -32,7 +32,7 @@ public class MixinBufferBuilder {
      * @author JellySquid
      */
     @Overwrite
-    public void sortQuads(float cameraX, float cameraY, float cameraZ) {
+    public void method_31948(float cameraX, float cameraY, float cameraZ) {
         this.buffer.clear();
         FloatBuffer floatBuffer = this.buffer.asFloatBuffer();
 

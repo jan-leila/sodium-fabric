@@ -9,7 +9,6 @@ import net.minecraft.client.render.*;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundEvents;
-import org.lwjgl.opengl.GL11;
 
 import java.util.function.Consumer;
 
@@ -39,7 +38,7 @@ public abstract class AbstractWidget implements Drawable, Element {
         RenderSystem.defaultBlendFunc();
 
         BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
-        bufferBuilder.begin(GL11.GL_QUADS, VertexFormats.POSITION_COLOR);
+        bufferBuilder.begin(VertexFormat.class_5596.field_27382, VertexFormats.POSITION_COLOR);
 
         consumer.accept(bufferBuilder);
 

@@ -42,6 +42,8 @@ import java.util.SortedSet;
 public class SodiumWorldRenderer implements ChunkStatusListener {
     private static SodiumWorldRenderer instance;
 
+    private final BlockEntityRenderDispatcher blockEntityRenderDispatcher;
+
     private final MinecraftClient client;
 
     private ClientWorld world;
@@ -85,6 +87,7 @@ public class SodiumWorldRenderer implements ChunkStatusListener {
 
     private SodiumWorldRenderer(MinecraftClient client) {
         this.client = client;
+        this.blockEntityRenderDispatcher = client.method_31975();
     }
 
     public void setWorld(ClientWorld world) {
@@ -299,7 +302,7 @@ public class SodiumWorldRenderer implements ChunkStatusListener {
                 }
             }
 
-            BlockEntityRenderDispatcher.INSTANCE.render(blockEntity, tickDelta, matrices, consumer);
+            this.blockEntityRenderDispatcher.render(blockEntity, tickDelta, matrices, consumer);
 
             matrices.pop();
         }
@@ -310,7 +313,7 @@ public class SodiumWorldRenderer implements ChunkStatusListener {
             matrices.push();
             matrices.translate((double) pos.getX() - x, (double) pos.getY() - y, (double) pos.getZ() - z);
 
-            BlockEntityRenderDispatcher.INSTANCE.render(blockEntity, tickDelta, matrices, immediate);
+            this.blockEntityRenderDispatcher.render(blockEntity, tickDelta, matrices, immediate);
 
             matrices.pop();
         }
