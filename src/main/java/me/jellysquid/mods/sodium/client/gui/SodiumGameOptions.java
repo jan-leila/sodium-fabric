@@ -21,6 +21,7 @@ public class SodiumGameOptions {
     public final QualitySettings quality = new QualitySettings();
     public final AdvancedSettings advanced = new AdvancedSettings();
     public final NotificationSettings notifications = new NotificationSettings();
+    public final SpeedrunSettings speedrun = new SpeedrunSettings();
 
     private Path configPath;
 
@@ -54,6 +55,10 @@ public class SodiumGameOptions {
 
     public static class NotificationSettings {
         public boolean hideDonationButton = false;
+    }
+
+    public static class SpeedrunSettings {
+        public boolean usePlanarFog = true;
     }
 
     public enum GraphicsQuality implements TextProvider {
