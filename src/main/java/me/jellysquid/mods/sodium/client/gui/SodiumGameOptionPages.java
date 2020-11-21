@@ -237,6 +237,7 @@ public class SodiumGameOptionPages {
 
     public static OptionPage advanced() {
         boolean disableBlacklist = SodiumClientMod.options().advanced.disableDriverBlacklist;
+        boolean usePlanarFog = SodiumClientMod.options().unofficial.usePlanarFog;
 
         List<OptionGroup> groups = new ArrayList<>();
 
@@ -283,6 +284,7 @@ public class SodiumGameOptionPages {
                         .setControl(TickBoxControl::new)
                         .setBinding((opts, value) -> opts.advanced.useFogOcclusion = value, opts -> opts.advanced.useFogOcclusion)
                         .setImpact(OptionImpact.MEDIUM)
+                        .setEnabled(!usePlanarFog)
                         .setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)
                         .build()
                 )
@@ -342,5 +344,24 @@ public class SodiumGameOptionPages {
                 )
                 .build());
         return new OptionPage("Advanced", ImmutableList.copyOf(groups));
+    }
+
+    public static OptionPage unofficial() {
+        List<OptionGroup> groups = new ArrayList<>();
+
+        groups.add(OptionGroup.createBuilder()
+                .add(OptionImpl.createBuilder(boolean.class, sodiumOpts)
+                        .setName("Use Planar Fog")
+                        .setTooltip("Looks and runs worse! If enabled, fog will be planar instead of radial, which is vanilla behavior on systems where " +
+                                "GL_NV_fog_distance is unavailable. This option allows more chunks to be seen, but disables fog occlusion, which may " +
+                                "drastically reduce performance in the nether, underwater, etc. Not included in official releases of sodium.")
+                        .setControl(TickBoxControl::new)
+                        .setBinding((opts, value) -> opts.unofficial.usePlanarFog = value, opts -> opts.unofficial.usePlanarFog)
+                        .setImpact(OptionImpact.MEDIUM)
+                        .setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)
+                        .build()
+                )
+                .build());
+        return new OptionPage("Unofficial", ImmutableList.copyOf(groups));
     }
 }
