@@ -26,6 +26,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.*;
 import net.minecraft.world.chunk.ChunkSection;
@@ -75,10 +76,11 @@ public class ChunkRenderManager<T extends ChunkGraphicsState> implements ChunkSt
 
     private int lastFrameUpdated;
     private double fogRenderCutoff;
-    private boolean useOcclusionCulling, useFogCulling;
+    private boolean useOcclusionCulling, useFogCulling, usePlanarFog;
     private boolean dirty;
 
     private double cameraX, cameraY, cameraZ;
+    private Vector3f cameraHorizontalPlane;
     private boolean useAggressiveCulling;
 
     private int visibleChunkCount;
@@ -150,8 +152,14 @@ public class ChunkRenderManager<T extends ChunkGraphicsState> implements ChunkSt
             }
         }
 
-        if (this.useFogCulling && parent.getSquaredDistanceXZ(this.cameraX, this.cameraZ) >= this.fogRenderCutoff) {
-            return;
+        if (this.useFogCulling) {
+            if (this.usePlanarFog) {
+                if (parent.getSquaredDepth(this.cameraX, this.cameraY, this.cameraZ, this.cameraHorizontalPlane) >= this.fogRenderCutoff) {
+                    return;
+                }
+            } else if (parent.getSquaredDistance(this.cameraX, this.cameraY, this.cameraZ) >= this.fogRenderCutoff) {
+                return;
+            }
         }
 
         if (adj.isOutsideFrustum(frustum)) {
@@ -242,6 +250,7 @@ public class ChunkRenderManager<T extends ChunkGraphicsState> implements ChunkSt
         this.cameraX = camera.getPos().x;
         this.cameraY = camera.getPos().y;
         this.cameraZ = camera.getPos().z;
+        this.cameraHorizontalPlane = camera.getHorizontalPlane();
 
         this.lastFrameUpdated = frame;
         this.useOcclusionCulling = MinecraftClient.getInstance().chunkCullingEnabled;
@@ -299,6 +308,9 @@ public class ChunkRenderManager<T extends ChunkGraphicsState> implements ChunkSt
 
             if (dist != 0.0f) {
                 this.useFogCulling = true;
+                if (SodiumClientMod.options().unofficial.usePlanarFog) {
+                    this.usePlanarFog = true;
+                }
                 this.fogRenderCutoff = Math.max(FOG_PLANE_MIN_DISTANCE, dist * dist);
             }
         }
