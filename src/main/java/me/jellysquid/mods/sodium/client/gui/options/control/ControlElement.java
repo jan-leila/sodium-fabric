@@ -3,7 +3,7 @@ package me.jellysquid.mods.sodium.client.gui.options.control;
 import me.jellysquid.mods.sodium.client.gui.options.Option;
 import me.jellysquid.mods.sodium.client.gui.widgets.AbstractWidget;
 import me.jellysquid.mods.sodium.client.util.Dim2i;
-import net.minecraft.client.util.TextFormat;
+import net.minecraft.util.Formatting;
 
 public class ControlElement<T> extends AbstractWidget {
     protected final Option<T> option;
@@ -32,12 +32,12 @@ public class ControlElement<T> extends AbstractWidget {
 
         if (this.option.isAvailable()) {
             if (this.option.hasChanged()) {
-                label = TextFormat.ITALIC + name + " *";
+                label = Formatting.ITALIC + name + " *";
             } else {
-                label = TextFormat.WHITE + name;
+                label = Formatting.WHITE + name;
             }
         } else {
-            label = String.valueOf(TextFormat.GRAY) + TextFormat.STRIKETHROUGH + name;
+            label = String.valueOf(Formatting.GRAY) + Formatting.STRIKETHROUGH + name;
         }
 
         this.hovered = this.dim.containsCursor(mouseX, mouseY);

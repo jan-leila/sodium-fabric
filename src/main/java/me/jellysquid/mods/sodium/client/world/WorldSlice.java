@@ -8,9 +8,11 @@ import me.jellysquid.mods.sodium.client.world.biome.BiomeColorCache;
 import me.jellysquid.mods.sodium.common.util.pool.ReusableObject;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.LightType;
@@ -245,6 +247,11 @@ public class WorldSlice extends ReusableObject implements BlockRenderView, Biome
     }
 
     @Override
+    public float getBrightness(Direction direction, boolean shaded) {
+        return this.world.getBrightness(direction, shaded);
+    }
+
+    @Override
     public LightingProvider getLightingProvider() {
         return this.world.getLightingProvider();
     }
@@ -279,6 +286,12 @@ public class WorldSlice extends ReusableObject implements BlockRenderView, Biome
     }
 
     @Override
+    public Vector3f method_26443(BlockState blockState, BlockPos blockPos) {
+        // [VanillaCopy]
+        return this.world.method_26443(blockState, blockPos);
+    }
+
+    @Override
     public int getLightLevel(LightType type, BlockPos pos) {
         switch (type) {
             case SKY:
@@ -288,6 +301,16 @@ public class WorldSlice extends ReusableObject implements BlockRenderView, Biome
             default:
                 return 0;
         }
+    }
+
+    @Override
+    public int getBaseLightLevel(BlockPos pos, int ambientDarkness) {
+        return 0;
+    }
+
+    @Override
+    public boolean isSkyVisible(BlockPos pos) {
+        return false;
     }
 
     private int getLightLevel(ChunkNibbleArray[] arrays, BlockPos pos) {

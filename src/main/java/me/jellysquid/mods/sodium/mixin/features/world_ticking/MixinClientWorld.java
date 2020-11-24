@@ -21,8 +21,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+
 import java.util.Random;
 import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 @Mixin(ClientWorld.class)
 public abstract class MixinClientWorld extends World {
@@ -30,8 +32,8 @@ public abstract class MixinClientWorld extends World {
     protected abstract void addParticle(BlockPos pos, BlockState state, ParticleEffect parameters, boolean bl);
 
     protected MixinClientWorld(LevelProperties levelProperties, DimensionType dimensionType,
-                               BiFunction<World, Dimension, ChunkManager> chunkManagerProvider, Profiler profiler,
-                               boolean isClient) {
+                               BiFunction<World, Dimension, ChunkManager> chunkManagerProvider,
+                               Supplier<Profiler> profiler, boolean isClient) {
         super(levelProperties, dimensionType, chunkManagerProvider, profiler, isClient);
     }
 
