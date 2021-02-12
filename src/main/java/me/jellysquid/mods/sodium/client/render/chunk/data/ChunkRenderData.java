@@ -46,8 +46,13 @@ public class ChunkRenderData {
         return this.bounds;
     }
 
-    public ChunkOcclusionData getOcclusionData() {
-        return this.occlusionData;
+    /**
+     * @param from The direction from which this node is being traversed through on the graph
+     * @param to The direction from this node into the adjacent to be tested
+     * @return True if this chunk can cull the neighbor given the incoming direction
+     */
+    public boolean isVisibleThrough(Direction from, Direction to) {
+        return this.occlusionData != null && this.occlusionData.isVisibleThrough(from, to);
     }
 
     public List<Sprite> getAnimatedSprites() {
@@ -92,7 +97,7 @@ public class ChunkRenderData {
         private final EnumMap<BlockRenderPass, ChunkMeshData> meshes = new EnumMap<>(BlockRenderPass.class);
 
         private ChunkOcclusionData occlusionData;
-        private ChunkRenderBounds bounds = ChunkRenderBounds.ALWAYS_FALSE;
+        private ChunkRenderBounds bounds;
 
         public Builder() {
             for (BlockRenderPass pass : BlockRenderPass.VALUES) {

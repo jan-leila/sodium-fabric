@@ -206,7 +206,7 @@ public class SodiumWorldRenderer implements ChunkStatusListener {
         if (!hasForcedFrustum && this.chunkRenderManager.isDirty()) {
             profiler.swap("chunk_graph_rebuild");
 
-            this.chunkRenderManager.update(camera, (FrustumExtended) frustum, frame, spectator);
+            this.chunkRenderManager.updateGraph(camera, (FrustumExtended) frustum, frame, spectator);
         }
 
         profiler.swap("visible_chunk_tick");
@@ -351,10 +351,8 @@ public class SodiumWorldRenderer implements ChunkStatusListener {
         this.chunkRenderManager.onChunkRemoved(x, z);
     }
 
-    public void onChunkRenderUpdated(int x, int y, int z, ChunkRenderData meshBefore, ChunkRenderData meshAfter) {
+    public void onChunkRenderUpdated(ChunkRenderData meshBefore, ChunkRenderData meshAfter) {
         ListUtil.updateList(this.globalBlockEntities, meshBefore.getGlobalBlockEntities(), meshAfter.getGlobalBlockEntities());
-
-        this.chunkRenderManager.onChunkRenderUpdates(x, y, z, meshAfter);
     }
 
     /**
