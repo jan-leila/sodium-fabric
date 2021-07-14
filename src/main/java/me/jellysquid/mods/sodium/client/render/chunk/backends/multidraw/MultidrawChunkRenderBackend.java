@@ -32,6 +32,7 @@ import me.jellysquid.mods.sodium.client.render.chunk.shader.ChunkRenderShaderBac
 import me.jellysquid.mods.sodium.client.render.chunk.shader.ChunkShaderBindingPoints;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Util;
+import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL20C;
 
 import java.util.ArrayList;
@@ -341,9 +342,6 @@ public class MultidrawChunkRenderBackend extends ChunkRenderShaderBackend<Multid
                 GlFunctions.isInstancedArraySupported();
     }
 
-    // https://www.intel.com/content/www/us/en/support/articles/000005654/graphics.html
-    private static final Pattern INTEL_BUILD_MATCHER = Pattern.compile("(\\d.\\d.\\d) - Build (\\d+).(\\d+).(\\d+).(\\d+)");
-
     private static final String INTEL_VENDOR_NAME = "Intel";
 
     /**
@@ -371,23 +369,11 @@ public class MultidrawChunkRenderBackend extends ChunkRenderShaderBackend<Multid
             return false;
         }
 
-        String version = GL20C.glGetString(GL20C.GL_VERSION);
-
-        // The returned version string may be null in the case of an error
-        if (version == null) {
-            return false;
+        //This is the best approximation we have of the set of drivers that aren't broken.
+        if (GL.getCapabilities().OpenGL43 && System.getProperty("os.name") == "Windows 10") {
+	    return true;
         }
-
-        Matcher matcher = INTEL_BUILD_MATCHER.matcher(version);
-
-        // If the version pattern doesn't match, assume we're dealing with something special
-        if (!matcher.matches()) {
-            return false;
-        }
-
-        // Anything with a major build of >=100 is GPU Gen8 or newer
-        // The fourth group is the major build number
-        return Integer.parseInt(matcher.group(4)) < 100;
+        return false;
     }
 
     @Override
