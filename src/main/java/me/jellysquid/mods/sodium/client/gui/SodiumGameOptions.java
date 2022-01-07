@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
 import me.jellysquid.mods.sodium.client.gui.options.TextProvider;
-import me.jellysquid.mods.sodium.client.render.chunk.backends.multidraw.MultidrawChunkRenderBackend;
 import net.minecraft.client.options.GraphicsMode;
 
 import java.io.FileReader;
@@ -14,14 +13,13 @@ import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.stream.Stream;
 
 public class SodiumGameOptions {
     public final QualitySettings quality = new QualitySettings();
     public final AdvancedSettings advanced = new AdvancedSettings();
     public final NotificationSettings notifications = new NotificationSettings();
     public final SpeedrunSettings speedrun = new SpeedrunSettings();
+    public final SettingsSettings settings = new SettingsSettings();
 
     private Path configPath;
 
@@ -59,6 +57,10 @@ public class SodiumGameOptions {
 
     public static class SpeedrunSettings {
         public boolean usePlanarFog = true;
+    }
+
+    public static class SettingsSettings {
+        public boolean forceVanillaSettings = false;
     }
 
     public enum GraphicsQuality implements TextProvider {
