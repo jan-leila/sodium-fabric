@@ -31,7 +31,7 @@ public class MixinVideoOptionsScreen extends GameOptionsScreen {
             VanillaOptions.FRAMERATE_LIMIT,
             VanillaOptions.VSYNC,
             VanillaOptions.VIEW_BOBBING,
-//            VanillaOptions.GUI_SCALE,
+            VanillaOptions.GUI_SCALE,
 //            VanillaOptions.ATTACK_INDICATOR,
 //            VanillaOptions.GAMMA,
 //            VanillaOptions.CLOUDS,

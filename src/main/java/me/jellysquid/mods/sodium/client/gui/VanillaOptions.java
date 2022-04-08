@@ -4,10 +4,12 @@ import me.jellysquid.mods.sodium.client.gui.options.OptionFlag;
 import me.jellysquid.mods.sodium.client.gui.vanilla.factorys.BooleanOptionFactory;
 import me.jellysquid.mods.sodium.client.gui.vanilla.factorys.CycleOptionFactory;
 import me.jellysquid.mods.sodium.client.gui.vanilla.factorys.DoubleOptionFactory;
+import me.jellysquid.mods.sodium.client.gui.vanilla.options.GUIScaleOptions;
 import me.jellysquid.mods.sodium.client.gui.vanilla.options.GraphicsOptions;
 import me.jellysquid.mods.sodium.client.gui.vanilla.options.SmoothLightingOptions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.options.*;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -99,4 +101,12 @@ public class VanillaOptions {
             .setSetter((options, value) -> options.bobView = value)
             .build();
 
+
+    public static final Option GUI_SCALE = new CycleOptionFactory<GUIScaleOptions>().vanilla()
+            .setKey("options.guiScale")
+            .setOptions(GUIScaleOptions.values())
+            .setSetter((options, value) -> options.guiScale = Integer.remainderUnsigned(value.getIndex(), MinecraftClient.getInstance().getWindow().calculateScaleFactor(0, MinecraftClient.getInstance().forcesUnicodeFont()) + 1))
+            .setGetter((options) -> GUIScaleOptions.getOption(options.guiScale))
+            .setTextGetter((value, self) -> self.getDisplayPrefix().append(value.getIndex() == 0 ? new TranslatableText("options.guiScale.auto") : new LiteralText(Integer.toString(value.getIndex()))))
+            .build();
 }
