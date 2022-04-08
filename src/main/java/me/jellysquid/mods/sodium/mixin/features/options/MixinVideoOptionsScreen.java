@@ -2,8 +2,7 @@ package me.jellysquid.mods.sodium.mixin.features.options;
 
 import me.jellysquid.mods.sodium.client.gui.VanillaOptions;
 import me.jellysquid.mods.sodium.client.gui.options.OptionFlag;
-import me.jellysquid.mods.sodium.client.gui.options.storage.OptionStorage;
-import me.jellysquid.mods.sodium.client.gui.vanilla.OptionBuilder;
+import me.jellysquid.mods.sodium.client.gui.vanilla.builders.OptionBuilder;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.VideoOptionsScreen;
@@ -30,8 +29,8 @@ public class MixinVideoOptionsScreen extends GameOptionsScreen {
             VanillaOptions.RENDER_DISTANCE,
             VanillaOptions.SMOOTH_LIGHTING,
             VanillaOptions.FRAMERATE_LIMIT,
-//            VanillaOptions.VSYNC,
-//            VanillaOptions.VIEW_BOBBING,
+            VanillaOptions.VSYNC,
+            VanillaOptions.VIEW_BOBBING,
 //            VanillaOptions.GUI_SCALE,
 //            VanillaOptions.ATTACK_INDICATOR,
 //            VanillaOptions.GAMMA,

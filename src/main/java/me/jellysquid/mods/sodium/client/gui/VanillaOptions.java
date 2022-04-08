@@ -1,6 +1,7 @@
 package me.jellysquid.mods.sodium.client.gui;
 
 import me.jellysquid.mods.sodium.client.gui.options.OptionFlag;
+import me.jellysquid.mods.sodium.client.gui.vanilla.factorys.BooleanOptionFactory;
 import me.jellysquid.mods.sodium.client.gui.vanilla.factorys.CycleOptionFactory;
 import me.jellysquid.mods.sodium.client.gui.vanilla.factorys.DoubleOptionFactory;
 import me.jellysquid.mods.sodium.client.gui.vanilla.options.GraphicsOptions;
@@ -82,4 +83,20 @@ public class VanillaOptions {
             })
             .setTextGetter((value, self) -> value == self.getMax()? new TranslatableText("options.framerateLimit.max") : new TranslatableText("options.framerate", value.intValue()))
             .build();
+
+    public static final Option VSYNC = new BooleanOptionFactory().vanilla()
+            .setKey("options.vsync")
+            .setGetter((options) -> options.enableVsync)
+            .setSetter((options, value) -> {
+                options.enableVsync = value;
+                MinecraftClient.getInstance().getWindow().setVsync(options.enableVsync);
+            })
+            .build();
+
+    public static final Option VIEW_BOBBING = new BooleanOptionFactory().vanilla()
+            .setKey("options.viewBobbing")
+            .setGetter((options) -> options.bobView)
+            .setSetter((options, value) -> options.bobView = value)
+            .build();
+
 }
