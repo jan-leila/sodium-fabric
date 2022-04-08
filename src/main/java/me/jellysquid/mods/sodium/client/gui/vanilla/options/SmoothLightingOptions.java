@@ -8,14 +8,14 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public enum SmoothLightingOptions implements IndexedOption {
-    OFF(LightingQuality.OFF, 0, "options.ao.off"),
-    LOW(LightingQuality.LOW, 1,  "options.ao.min"),
-    HIGH(LightingQuality.HIGH, 2, "options.ao.max");
+    OFF(0, LightingQuality.OFF, "options.ao.off"),
+    LOW(1, LightingQuality.LOW,  "options.ao.min"),
+    HIGH(2, LightingQuality.HIGH, "options.ao.max");
 
     private final int index;
     private final LightingQuality option;
     private final Text text;
-    SmoothLightingOptions(LightingQuality option, int index, String translationKey){
+    SmoothLightingOptions(int index, LightingQuality option, String translationKey){
         this.index = index;
         this.option = option;
         this.text = new TranslatableText(translationKey);

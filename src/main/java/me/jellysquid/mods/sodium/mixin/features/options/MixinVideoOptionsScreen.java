@@ -25,32 +25,22 @@ public class MixinVideoOptionsScreen extends GameOptionsScreen {
     }
 
     private static final Option[] OPTIONS = {
-            VanillaOptions.GRAPHICS_OPTION,
-            VanillaOptions.RENDER_DISTANCE,
+            Option.GRAPHICS,
+            Option.RENDER_DISTANCE,
             VanillaOptions.SMOOTH_LIGHTING,
-            VanillaOptions.FRAMERATE_LIMIT,
-            VanillaOptions.VSYNC,
-            VanillaOptions.VIEW_BOBBING,
-            VanillaOptions.GUI_SCALE,
-//            VanillaOptions.ATTACK_INDICATOR,
-//            VanillaOptions.GAMMA,
-//            VanillaOptions.CLOUDS,
-//            VanillaOptions.FULLSCREEN,
-//            VanillaOptions.PARTICLES,
-//            VanillaOptions.MIPMAP_LEVELS,
-//            VanillaOptions.ENTITY_SHADOWS,
-//            VanillaOptions.ENTITY_DISTANCE_SCALING
+            Option.FRAMERATE_LIMIT,
+            Option.VSYNC,
+            Option.VIEW_BOBBING,
+            Option.GUI_SCALE,
+            Option.ATTACK_INDICATOR,
+            Option.GAMMA,
+            VanillaOptions.CLOUDS,
+            Option.FULLSCREEN,
+            Option.PARTICLES,
+            Option.MIPMAP_LEVELS,
+            Option.ENTITY_SHADOWS,
+            Option.ENTITY_DISTANCE_SCALING
     };
-
-//    @Redirect(method = "init", at=@At(value = "INVOKE", target = "Lnet/minecraft/client/gui/widget/ButtonListWidget;addSingleOptionEntry(Lnet/minecraft/client/options/Option;)I", ordinal = 0))
-//    private int fullScreenOption(ButtonListWidget list, Option old_option){
-//        return list.addSingleOptionEntry(fullScreenOption);
-//    }
-
-    @Redirect(method = "init", at=@At(value = "INVOKE", target = "Lnet/minecraft/client/gui/widget/ButtonListWidget;addSingleOptionEntry(Lnet/minecraft/client/options/Option;)I", ordinal = 1))
-    private int biomesBlendOption(ButtonListWidget list, Option old_option){
-        return list.addSingleOptionEntry(VanillaOptions.BIOME_BLEND_RADIUS);
-    }
 
     @Redirect(method = "init", at=@At(value = "INVOKE", target = "Lnet/minecraft/client/gui/widget/ButtonListWidget;addAll([Lnet/minecraft/client/options/Option;)V"))
     private void optionsSwap(ButtonListWidget list, Option[] old_options){
@@ -64,10 +54,7 @@ public class MixinVideoOptionsScreen extends GameOptionsScreen {
 
         Set<OptionFlag> flags = OptionBuilder.getFlags();
 
-        System.out.println("closing");
-
         if(flags.contains(OptionFlag.REQUIRES_RENDERER_RELOAD)){
-            System.out.println("reload render");
             client.worldRenderer.reload();
         }
 
