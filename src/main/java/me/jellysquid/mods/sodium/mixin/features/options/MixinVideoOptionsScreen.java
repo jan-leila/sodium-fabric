@@ -29,7 +29,7 @@ public class MixinVideoOptionsScreen extends GameOptionsScreen {
             VanillaOptions.GRAPHICS_OPTION,
             VanillaOptions.RENDER_DISTANCE,
             VanillaOptions.SMOOTH_LIGHTING,
-//            VanillaOptions.FRAMERATE_LIMIT,
+            VanillaOptions.FRAMERATE_LIMIT,
 //            VanillaOptions.VSYNC,
 //            VanillaOptions.VIEW_BOBBING,
 //            VanillaOptions.GUI_SCALE,

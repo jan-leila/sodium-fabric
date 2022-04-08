@@ -69,4 +69,17 @@ public class VanillaOptions {
             .setTextGetter((value, self) -> self.getDisplayPrefix().append(value.getText()))
             .flag(OptionFlag.REQUIRES_RENDERER_RELOAD)
             .build();
+
+    public static final Option FRAMERATE_LIMIT = new DoubleOptionFactory().vanilla()
+            .setKey("options.framerateLimit")
+            .setMin(10)
+            .setMax(260)
+            .setStep(10)
+            .setGetter((options) -> (double) options.maxFps)
+            .setSetter((options, value) -> {
+                options.maxFps = value.intValue();
+                MinecraftClient.getInstance().getWindow().setFramerateLimit(options.maxFps);
+            })
+            .setTextGetter((value, self) -> value == self.getMax()? new TranslatableText("options.framerateLimit.max") : new TranslatableText("options.framerate", value.intValue()))
+            .build();
 }
