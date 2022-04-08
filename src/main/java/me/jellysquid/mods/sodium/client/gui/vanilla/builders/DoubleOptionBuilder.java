@@ -1,4 +1,4 @@
-package me.jellysquid.mods.sodium.client.gui.vanilla;
+package me.jellysquid.mods.sodium.client.gui.vanilla.builders;
 
 import me.jellysquid.mods.sodium.client.gui.options.storage.OptionStorage;
 import net.minecraft.client.options.DoubleOption;
