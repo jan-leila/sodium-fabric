@@ -61,6 +61,7 @@
     "features.world_ticking.MixinClientWorld"
   ],
   "mixins": [
+    "features.debug.DebugHudAccessor",
     "features.options.MixinVideoOptionsScreen"
   ]
 }

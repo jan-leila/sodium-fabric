@@ -22,9 +22,9 @@ public abstract class MixinDebugHud {
         throw new UnsupportedOperationException();
     }
 
-    @Redirect(method = "getRightText", at = @At(value = "INVOKE", target = "Lcom/google/common/collect/Lists;newArrayList([Ljava/lang/Object;)Ljava/util/ArrayList;"))
-    private ArrayList<String> redirectRightTextEarly(Object[] elements) {
-        ArrayList<String> strings = Lists.newArrayList((String[]) elements);
+    @Redirect(method = "renderRightText", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/DebugHud;getRightText()Ljava/util/List;"))
+    private List<String> redirectRightTextEarly(DebugHud instance) {
+        List<String> strings = ((DebugHudAccessor)instance).invokeGetRightText();
         strings.add("");
         strings.add("Sodium Renderer");
         strings.add(Formatting.UNDERLINE + getFormattedVersionText());
