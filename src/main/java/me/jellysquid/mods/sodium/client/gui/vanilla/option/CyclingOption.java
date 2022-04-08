@@ -1,5 +1,7 @@
 package me.jellysquid.mods.sodium.client.gui.vanilla.option;
 
+import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
+import me.jellysquid.mods.sodium.client.gui.options.storage.SodiumOptionsStorage;
 import me.jellysquid.mods.sodium.client.gui.vanilla.options.IndexedOption;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.OptionButtonWidget;
@@ -11,16 +13,16 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public class CyclingOption<S, V extends IndexedOption> extends Option {
+public class CyclingOption<V extends IndexedOption> extends Option {
 
     int index;
-    S gameOptions;
+    SodiumGameOptions gameOptions;
     V[] options;
-    BiConsumer<S, V> setter;
-    Function<S, V> getter;
-    BiFunction<S, CyclingOption<S, V>, Text> displayStringGetter;
+    BiConsumer<SodiumGameOptions, V> setter;
+    Function<SodiumGameOptions, V> getter;
+    BiFunction<SodiumGameOptions, CyclingOption<V>, Text> displayStringGetter;
 
-    public CyclingOption(String key, S gameOptions, V[] options, BiConsumer<S, V> setter, Function<S, V> getter, BiFunction<S, CyclingOption<S, V>, Text> displayStringGetter) {
+    public CyclingOption(String key, SodiumGameOptions gameOptions, V[] options, BiConsumer<SodiumGameOptions, V> setter, Function<SodiumGameOptions, V> getter, BiFunction<SodiumGameOptions, CyclingOption<V>, Text> displayStringGetter) {
         super(key);
         this.gameOptions = gameOptions;
         this.options = options;

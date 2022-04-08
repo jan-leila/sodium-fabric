@@ -1,24 +1,23 @@
 package me.jellysquid.mods.sodium.client.gui.vanilla.builders;
 
-import me.jellysquid.mods.sodium.client.gui.options.storage.OptionStorage;
+import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
 import me.jellysquid.mods.sodium.client.gui.vanilla.option.CyclingOption;
 import me.jellysquid.mods.sodium.client.gui.vanilla.options.IndexedOption;
+import net.minecraft.text.Text;
 import org.apache.commons.lang3.Validate;
 
-public class CycleOptionBuilder<S, V extends IndexedOption> extends OptionBuilder<CycleOptionBuilder<S, V>, S, CyclingOption<S, V>, V> {
+import java.util.function.BiFunction;
+
+public class CycleOptionBuilder<V extends IndexedOption> extends OptionBuilder<CycleOptionBuilder<V>, CyclingOption<V>, V> {
 
     private V[] options;
 
-    public CycleOptionBuilder(OptionStorage<S> storage) {
-        super(storage);
-    }
-
     @Override
-    CycleOptionBuilder<S, V> self() {
+    CycleOptionBuilder<V> self() {
         return this;
     }
 
-    public CycleOptionBuilder<S, V> setOptions(V[] options){
+    public CycleOptionBuilder<V> setOptions(V[] options){
         this.options = options;
         return self();
     }
@@ -29,14 +28,15 @@ public class CycleOptionBuilder<S, V extends IndexedOption> extends OptionBuilde
     }
 
     @Override
-    public CyclingOption<S, V> build() {
+    public CyclingOption<V> build() {
+        BiFunction<SodiumGameOptions, CyclingOption<V>, Text> textGetter = getTextGetter();
         return new CyclingOption<>(
                 getKey(),
-                getStorage(),
+                sodiumOpts.getData(),
                 getOptions(),
                 getSetter(),
                 getGetter(),
-                getTextGetter()
+                (options, self) -> self.getDisplayPrefix().append(textGetter.apply(options, self))
         );
     }
 }
