@@ -1,6 +1,7 @@
 package me.jellysquid.mods.sodium.client.gui.vanilla.factorys;
 
-import me.jellysquid.mods.sodium.client.gui.vanilla.DoubleOptionBuilder;
+import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
+import me.jellysquid.mods.sodium.client.gui.vanilla.builders.DoubleOptionBuilder;
 import net.minecraft.client.options.GameOptions;
 
 public class DoubleOptionFactory extends BuilderFactory<DoubleOptionBuilder<?>>  {
@@ -8,7 +9,7 @@ public class DoubleOptionFactory extends BuilderFactory<DoubleOptionBuilder<?>> 
         return new DoubleOptionBuilder<>(vanillaOpts);
     }
 
-    public DoubleOptionBuilder<GameOptions> sodium(){
-        return new DoubleOptionBuilder<>(vanillaOpts);
+    public DoubleOptionBuilder<SodiumGameOptions> sodium(){
+        return new DoubleOptionBuilder<>(sodiumOpts);
     }
 }

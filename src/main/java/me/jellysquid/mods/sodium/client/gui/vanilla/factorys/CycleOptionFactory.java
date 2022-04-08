@@ -1,7 +1,7 @@
 package me.jellysquid.mods.sodium.client.gui.vanilla.factorys;
 
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
-import me.jellysquid.mods.sodium.client.gui.vanilla.CycleOptionBuilder;
+import me.jellysquid.mods.sodium.client.gui.vanilla.builders.CycleOptionBuilder;
 import me.jellysquid.mods.sodium.client.gui.vanilla.options.IndexedOption;
 import net.minecraft.client.options.GameOptions;
 
