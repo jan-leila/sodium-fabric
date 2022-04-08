@@ -4,8 +4,6 @@ import me.jellysquid.mods.sodium.client.gui.options.OptionFlag;
 import me.jellysquid.mods.sodium.client.gui.vanilla.builders.CycleOptionBuilder;
 import me.jellysquid.mods.sodium.client.gui.vanilla.options.CloudsOptions;
 import me.jellysquid.mods.sodium.client.gui.vanilla.options.SmoothLightingOptions;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.options.*;
 
 public class VanillaOptions {
@@ -26,14 +24,8 @@ public class VanillaOptions {
             .setSetter((options, value) -> {
                 options.quality.enableClouds = value.isEnabled();
                 options.quality.cloudQuality = value.getQuality();
-
-                if (MinecraftClient.isFabulousGraphicsOrBetter()) {
-                    Framebuffer framebuffer = MinecraftClient.getInstance().worldRenderer.getCloudsFramebuffer();
-                    if (framebuffer != null) {
-                        framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
-                    }
-                }
             })
+            .flag(OptionFlag.REQUIRES_CLOUD_RELOAD)
             .setTextGetter((value, self) -> value.getText())
             .build();
 }

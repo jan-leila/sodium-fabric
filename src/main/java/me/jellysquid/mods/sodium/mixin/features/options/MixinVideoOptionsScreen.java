@@ -7,6 +7,7 @@ import me.jellysquid.mods.sodium.client.gui.VanillaOptions;
 import me.jellysquid.mods.sodium.client.gui.options.OptionFlag;
 import me.jellysquid.mods.sodium.client.gui.vanilla.builders.OptionBuilder;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.VideoOptionsScreen;
 import net.minecraft.client.gui.screen.options.GameOptionsScreen;
@@ -59,6 +60,14 @@ public class MixinVideoOptionsScreen extends GameOptionsScreen {
         Set<OptionFlag> flags = OptionBuilder.getFlags();
         if(flags.contains(OptionFlag.REQUIRES_RENDERER_RELOAD)){
             client.worldRenderer.reload();
+        }
+        if(flags.contains(OptionFlag.REQUIRES_CLOUD_RELOAD)){
+            if(MinecraftClient.isFabulousGraphicsOrBetter()) {
+                Framebuffer framebuffer = client.worldRenderer.getCloudsFramebuffer();
+                if(framebuffer != null) {
+                    framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+                }
+            }
         }
 
         try {
