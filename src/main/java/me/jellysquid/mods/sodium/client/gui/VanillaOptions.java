@@ -8,6 +8,8 @@ import net.minecraft.client.options.*;
 
 public class VanillaOptions {
 
+    public static boolean inRun = false;
+
     public static final Option SMOOTH_LIGHTING = new CycleOptionBuilder<SmoothLightingOptions>()
             .setKey("options.ao")
             .setOptions(SmoothLightingOptions.values())

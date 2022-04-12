@@ -1,7 +1,6 @@
 package me.jellysquid.mods.sodium.mixin.features.options;
 
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
-import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
 import me.jellysquid.mods.sodium.client.gui.SodiumOptionsGUI;
 import me.jellysquid.mods.sodium.client.gui.VanillaOptions;
 import me.jellysquid.mods.sodium.client.gui.options.OptionFlag;
@@ -79,13 +78,7 @@ public class MixinVideoOptionsScreen extends GameOptionsScreen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_P && (modifiers & GLFW.GLFW_MOD_SHIFT) != 0) {
-            SodiumClientMod.options().settings.forceVanillaSettings = false;
-            try {
-                SodiumClientMod.options().writeChanges();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if(!VanillaOptions.inRun && keyCode == GLFW.GLFW_KEY_P && (modifiers & GLFW.GLFW_MOD_SHIFT) != 0) {
             MinecraftClient.getInstance().openScreen(new SodiumOptionsGUI(this.parent));
             return true;
         }
