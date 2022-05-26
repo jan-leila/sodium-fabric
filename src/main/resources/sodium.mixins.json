@@ -63,6 +63,7 @@
   "mixins": [
     "features.debug.DebugHudAccessor",
     "features.options.MinecraftServerMixin",
+    "features.options.MixinDoubleOption",
     "features.options.MixinVideoOptionsScreen"
   ]
 }
