@@ -52,30 +52,18 @@ public class MixinVideoOptionsScreen extends GameOptionsScreen {
     @Redirect(method = "init", at=@At(value = "INVOKE", target = "Lnet/minecraft/client/gui/widget/ButtonListWidget;addAll([Lnet/minecraft/client/options/Option;)V"))
     private void optionsSwap(ButtonListWidget list, Option[] old_options){
         list.addAll(OPTIONS);
-
-        // For reduce log while changing render distance or another double options
-        SodiumClientMod.DOUBLE_OPTIONS_RUNNABLE.clear();
-        SodiumClientMod.DOUBLE_OPTIONS_CHANGES.clear();
-    }
-
-    private void doChangeDoubleOptions() {
-        // For reduce log while changing render distance or another double options
-        for (Runnable runnable : SodiumClientMod.DOUBLE_OPTIONS_RUNNABLE.values()) {
-            runnable.run();
-        }
-        SodiumClientMod.DOUBLE_OPTIONS_RUNNABLE.clear();
-        SodiumClientMod.DOUBLE_OPTIONS_CHANGES.clear();
+        VanillaOptions.clearSettingsChanges();
     }
 
     @Inject(method = "mouseReleased", at = @At("RETURN"))
     public void onRelease(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
-        doChangeDoubleOptions();
+        VanillaOptions.applySettingsChanges();
     }
 
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
         boolean result = super.keyReleased(keyCode, scanCode, modifiers);
-        doChangeDoubleOptions();
+        VanillaOptions.applySettingsChanges();
         return result;
     }
 
