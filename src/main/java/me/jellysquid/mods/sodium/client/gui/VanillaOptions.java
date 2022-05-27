@@ -6,9 +6,28 @@ import me.jellysquid.mods.sodium.client.gui.vanilla.options.CloudsOptions;
 import me.jellysquid.mods.sodium.client.gui.vanilla.options.SmoothLightingOptions;
 import net.minecraft.client.options.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class VanillaOptions {
 
     public static boolean inRun = false;
+
+    // For reduce log while changing render distance or another double options
+    private static final Set<Runnable> DOUBLE_OPTIONS_RUNNABLE = new HashSet<>();
+
+    public static void clearSettingsChanges(){
+        DOUBLE_OPTIONS_RUNNABLE.clear();
+    }
+
+    public static void applySettingsChanges(){
+        DOUBLE_OPTIONS_RUNNABLE.forEach(Runnable::run);
+        clearSettingsChanges();
+    }
+
+    public static void addSettingsChange(Runnable apply){
+        DOUBLE_OPTIONS_RUNNABLE.add(apply);
+    }
 
     public static final Option SMOOTH_LIGHTING = new CycleOptionBuilder<SmoothLightingOptions>()
             .setKey("options.ao")

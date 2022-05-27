@@ -17,7 +17,9 @@ import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.io.IOException;
 import java.util.Set;
@@ -50,6 +52,19 @@ public class MixinVideoOptionsScreen extends GameOptionsScreen {
     @Redirect(method = "init", at=@At(value = "INVOKE", target = "Lnet/minecraft/client/gui/widget/ButtonListWidget;addAll([Lnet/minecraft/client/options/Option;)V"))
     private void optionsSwap(ButtonListWidget list, Option[] old_options){
         list.addAll(OPTIONS);
+        VanillaOptions.clearSettingsChanges();
+    }
+
+    @Inject(method = "mouseReleased", at = @At("RETURN"))
+    public void onRelease(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+        VanillaOptions.applySettingsChanges();
+    }
+
+    @Override
+    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
+        boolean result = super.keyReleased(keyCode, scanCode, modifiers);
+        VanillaOptions.applySettingsChanges();
+        return result;
     }
 
     @Override
