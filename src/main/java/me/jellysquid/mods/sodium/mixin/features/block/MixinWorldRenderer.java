@@ -28,11 +28,11 @@ public class MixinWorldRenderer {
         ChunkRenderCacheShared.resetCaches();
     }
 
-    @Redirect(method = "getEntitiesDebugString", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;getRegularEntityCount()I"))
-    private int hidEntityCount(ClientWorld instance){
+    @Redirect(method = "getEntitiesDebugString", at = @At(value = "FIELD", target = "Lnet/minecraft/client/render/WorldRenderer;regularEntityCount:I"))
+    private int hidEntityCount(WorldRenderer instance){
         if(SodiumWorldRenderer.getInstance().getUseEntityCulling()){
             return -1;
         }
-        return  instance.getRegularEntityCount();
+        return  instance.regularEntityCount;
     }
 }
