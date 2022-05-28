@@ -26,15 +26,9 @@ public abstract class MixinDebugHud {
     private List<String> redirectRightTextEarly(DebugHud instance) {
         List<String> strings = ((DebugHudAccessor)instance).invokeGetRightText();
         strings.add("");
-        strings.add("Sodium Renderer");
+        strings.add("Sodium Speedrunning Build");
         strings.add(Formatting.UNDERLINE + getFormattedVersionText());
-        strings.add("Speedrunning Build");
         strings.add("");
-        strings.addAll(getChunkRendererDebugStrings());
-
-        if (SodiumClientMod.options().advanced.ignoreDriverBlacklist) {
-            strings.add(Formatting.RED + "(!!) Driver blacklist ignored");
-        }
 
         for (int i = 0; i < strings.size(); i++) {
             String str = strings.get(i);
@@ -62,16 +56,6 @@ public abstract class MixinDebugHud {
         }
 
         return color + version;
-    }
-
-    private static List<String> getChunkRendererDebugStrings() {
-        ChunkRenderBackend<?> backend = SodiumWorldRenderer.getInstance().getChunkRenderer();
-
-        List<String> strings = new ArrayList<>(4);
-        strings.add("Chunk Renderer: " + backend.getRendererName());
-        strings.addAll(backend.getDebugStrings());
-
-        return strings;
     }
 
     private static String getNativeMemoryString() {
