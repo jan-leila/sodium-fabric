@@ -35,7 +35,7 @@ public class VanillaOptions {
             .setOptions(SmoothLightingOptions.values())
             .setGetter((options) -> SmoothLightingOptions.getOption(options.quality.smoothLighting))
             .setSetter(((options, smoothLightingOption) -> options.quality.smoothLighting = smoothLightingOption.getSmoothLighting()))
-            .setTextGetter((value, self) -> value.getText())
+            .setTextGetter(SmoothLightingOptions::getText)
             .flag(OptionFlag.REQUIRES_RENDERER_RELOAD)
             .build();
 
@@ -48,7 +48,7 @@ public class VanillaOptions {
                 options.quality.cloudQuality = value.getQuality();
             })
             .flag(OptionFlag.REQUIRES_CLOUD_RELOAD)
-            .setTextGetter((value, self) -> value.getText())
+            .setTextGetter(CloudsOptions::getText)
             .build();
 
     public static final Option ENTITY_CULLING = new CycleOptionBuilder<EntityCulling>()
@@ -57,6 +57,6 @@ public class VanillaOptions {
             .setOptions(EntityCulling.values())
             .setGetter((options) -> EntityCulling.getOption(options.advanced.useEntityCulling))
             .setSetter((options, value) -> options.advanced.useEntityCulling = value.isEnabled())
-            .setTextGetter((value, self) -> value.getText())
+            .setTextGetter(EntityCulling::getText)
             .build();
 }
