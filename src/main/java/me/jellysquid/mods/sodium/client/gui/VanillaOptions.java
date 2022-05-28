@@ -3,6 +3,7 @@ package me.jellysquid.mods.sodium.client.gui;
 import me.jellysquid.mods.sodium.client.gui.options.OptionFlag;
 import me.jellysquid.mods.sodium.client.gui.vanilla.builders.CycleOptionBuilder;
 import me.jellysquid.mods.sodium.client.gui.vanilla.options.CloudsOptions;
+import me.jellysquid.mods.sodium.client.gui.vanilla.options.EntityCulling;
 import me.jellysquid.mods.sodium.client.gui.vanilla.options.SmoothLightingOptions;
 import net.minecraft.client.options.*;
 
@@ -47,6 +48,15 @@ public class VanillaOptions {
                 options.quality.cloudQuality = value.getQuality();
             })
             .flag(OptionFlag.REQUIRES_CLOUD_RELOAD)
+            .setTextGetter((value, self) -> value.getText())
+            .build();
+
+    public static final Option ENTITY_CULLING = new CycleOptionBuilder<EntityCulling>()
+            .setKey("options.entityCulling")
+            .setText("Entity Culling")
+            .setOptions(EntityCulling.values())
+            .setGetter((options) -> EntityCulling.getOption(options.advanced.useEntityCulling))
+            .setSetter((options, value) -> options.advanced.useEntityCulling = value.isEnabled())
             .setTextGetter((value, self) -> value.getText())
             .build();
 }

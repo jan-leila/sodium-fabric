@@ -17,6 +17,7 @@ public abstract class OptionBuilder<P, T, U> {
     static final SodiumOptionsStorage sodiumOpts = new SodiumOptionsStorage();
 
     private String key;
+    private String text;
     private BiFunction<U, T, Text> textGetter;
     private Function<SodiumGameOptions, U> getter;
     private BiConsumer<SodiumGameOptions, U> setter;
@@ -27,6 +28,11 @@ public abstract class OptionBuilder<P, T, U> {
     public P setKey(String key){
         this.key = key;
         return self();
+    }
+
+    public P setText(String text){
+        this.text = text;
+        return  self();
     }
 
     private static Set<OptionFlag> flags;
@@ -67,6 +73,10 @@ public abstract class OptionBuilder<P, T, U> {
     String getKey(){
         Validate.notNull(key, "Key must be specified");
         return key;
+    }
+
+    String getText(){
+        return text;
     }
 
     Function<SodiumGameOptions, U> getGetter(){

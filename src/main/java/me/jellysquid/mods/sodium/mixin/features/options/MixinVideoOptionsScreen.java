@@ -46,7 +46,8 @@ public class MixinVideoOptionsScreen extends GameOptionsScreen {
             Option.PARTICLES,
             Option.MIPMAP_LEVELS,
             Option.ENTITY_SHADOWS,
-            Option.ENTITY_DISTANCE_SCALING
+            Option.ENTITY_DISTANCE_SCALING,
+            VanillaOptions.ENTITY_CULLING
     };
 
     @Redirect(method = "init", at=@At(value = "INVOKE", target = "Lnet/minecraft/client/gui/widget/ButtonListWidget;addAll([Lnet/minecraft/client/options/Option;)V"))
