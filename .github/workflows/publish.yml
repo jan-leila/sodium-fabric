@@ -1,13 +1,24 @@
-name: release-artifacts
+name: "publish"
 
 on:
-  release:
-     types:
-       - published
+  push:
+    branches:
+      - "main"
+      - "master"
+    paths:
+      - src/**
+      - build.gradle
+      - gradle.properties
+      - settings.gradle
+
+env:
+  RELEASE_TITLE: "Sodium 1.16.1 - build ${{github.run_number}}"
+  RELEASE_TAG: "v${{github.run_number}}"
+  RELEASE_FILE: "build/libs/*-v${{github.run_number}}.jar"
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  publish:
+    runs-on: "ubuntu-latest"
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -17,8 +28,23 @@ jobs:
           java-version: 11
       - name: Build artifacts
         run: ./gradlew build
-      - name: Upload assets to GitHub
-        uses: AButler/upload-release-assets@v2.0
+      - name: Publish tagged version
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          files: 'build/libs/*;LICENSE'
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: "${{ env.RELEASE_TAG }}"
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          title: ${{ env.RELEASE_TITLE }}
+          files: |
+            LICENSE*
+            ${{ env.RELEASE_FILE }}
+      - name: Publish latest
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          automatic_release_tag: "latest"
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          title: ${{ env.RELEASE_TITLE }}
+          files: |
+            LICENSE*
+            ${{ env.RELEASE_FILE }}
