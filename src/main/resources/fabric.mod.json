@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "id": "sodium",
+  "id": "${mod_id}",
   "version": "${version}",
-  "name": "Sodium 1.16.1 Backport",
-  "description": "Sodium is a free and open-source optimization mod for Minecraft which improves frame rates and reduces lag spikes.\nThis is an unofficial backport of JellySquid's original mod.",
+  "name": "Sodium 1.16.1",
+  "description": "Sodium is a free and open-source optimization mod for Minecraft which improves frame rates and reduces lag spikes. \nThis is an unofficial backport of JellySquid's original mod.",
   "authors": [
-    "MrMangoHands"
+    "jan-leila"
   ],
   "contact": {
-    "homepage": "https://github.com/mrmangohands/sodium-fabric",
-    "issues": "https://github.com/mrmangohands/sodium-fabric/issues",
-    "sources": "https://github.com/mrmangohands/sodium-fabric"
+    "homepage": "https://github.com/Minecraft-Java-Edition-Speedrunning/mcsr-sodium-1.16.1",
+    "issues": "https://github.com/Minecraft-Java-Edition-Speedrunning/mcsr-sodium-1.16.1/issues",
+    "sources": "https://github.com/Minecraft-Java-Edition-Speedrunning/mcsr-sodium-1.16.1"
   },
   "license": "LGPL-3.0-only",
   "icon": "assets/sodium/icon.png",
