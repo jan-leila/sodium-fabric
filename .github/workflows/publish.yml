@@ -10,6 +10,7 @@ on:
       - build.gradle
       - gradle.properties
       - settings.gradle
+  workflow_dispatch:
 
 env:
   RELEASE_TITLE: "Sodium 1.16.1 - build ${{github.run_number}}"
