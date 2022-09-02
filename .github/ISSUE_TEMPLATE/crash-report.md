@@ -26,9 +26,7 @@ everything above this dashed line (including the line itself.)
 
 > Replace this text with the exact version of the mod you are using. Every part of the version is important! If you
 > do not know what version you are using, look at the file name in your "mods" folder.
->
-> Example: mc1.16.4-0.1.1+rev.4b3964a
-> 
+
 ### Reproduction Steps
 
 > Provide information on how to reproduce this game crash. You can either fill this section in like the example below
