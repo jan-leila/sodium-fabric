@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "sodium",
+  "id": "${mod_id}",
   "version": "${version}",
   "name": "Sodium 1.15.2 Backport",
   "description": "Sodium is a free and open-source optimization mod for Minecraft which improves frame rates and reduces lag spikes.\nThis is an unofficial backport of JellySquid's original mod.",
