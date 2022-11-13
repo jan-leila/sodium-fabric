@@ -7,7 +7,7 @@ def getVersionMetadata() {
     // CI builds version numbers
     def build_id = System.getenv("RELEASE_NUMBER")
     if (build_id != null) {
-        return build_id + "0.0"
+        return build_id + ".0.0"
     }
 
     // Development builds
